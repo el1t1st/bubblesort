@@ -1,10 +1,9 @@
 
 
+*This is part of a process of learning the core principles of Rust by building common algorithms.*
+
 # What is bubblesort?
 
-```rust 
-let vector_to_sort = vec![1,4,9,2,5,11];
-```
 
 You can think of bubble sort as a way of taking 2 values and put them in a private bubble, and then check which of those two values in the bubble is largest, and then switch them so the smaller one is first, and then move to the next 2 values, and do the same. Every time there is a switch needed, it is recorded. And if there was a switch during the bubble checks, the whole process is repeated.
 
@@ -12,10 +11,10 @@ You can think of bubble sort as a way of taking 2 values and put them in a priva
 
 # What can you sort with bubblesort?
 
-You can sort any collection of values that can be ordered. In other words types that have the PartionOrder (Order) trait.
+You can sort any collection of values that can be ordered. In other words types that have the PartialOrder (Order) trait.
 
 
-# Pseudocode
+## Pseudocode
 
 ``` 
 let changed = true; 
@@ -39,7 +38,7 @@ Start loop
 
 ```
 
-# How to iterate over a vec collection and get the index of the value?
+## How to iterate over a vec collection and get the index of the value?
 
 ```rust
 let collection = vec![1,3,5];
@@ -48,7 +47,7 @@ for (index, element) in collection.enumerate() {
 }
 ```
 
-# How to swap 2 values in 2 positions in a vector?
+## How to swap 2 values in 2 positions in a vector?
 ```rust
 let collection = vec![1,2];
 assert_eq!(collection.swap(1,0), [2,1]);
@@ -57,24 +56,24 @@ assert_eq!(collection.swap(1,0), [2,1]);
 
 ## The problems faced when coding the bubblesort in rust for the first time
 
-### 1. The main problem is with the ownership rules of Rust. 
+### 1. Understanding the borrowing rules of Rust. 
 
 - You can have many immutable references at the same time (but you can't have any mutable references then!) 
 - You can have only one immutable reference at any given time (but then you can't have any immutable references)
 
-I only got it working when using a clone of the original collection. The original one was immutable, and the clone immutable.
+A solution is to iter_mut over the original collection, and mutate it. To have multiple immutable references, you can clone the original collection.
 
 The algorithm:
 
 Loop over all elements of the vector
-Compare the element to the next element in the vector
+Compare the current element to the next element in the vector
 Swap if needed both elements
+If there is a swap set the switched value to true
+Stop looping when the switched value is false
 
 
 ### 2. When working with for loops on vectors and comparing indices, you need a way to know when you need to compare and when not. Because you will panic if you are trying to compare the last element with a non-existing next element.
 
 That's why you need an if block which checks if you've reached the last element before you compare the current element with the next element.
-
-
 
 
