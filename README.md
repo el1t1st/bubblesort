@@ -77,3 +77,13 @@ Stop looping when the switched value is false
 That's why you need an if block which checks if you've reached the last element before you compare the current element with the next element.
 
 
+
+# Extracting the bubblesort function for i32
+This extraction can be found in the **extract_bubblesort_function** branch.
+
+# Extracting a generic bubblesort function for Vec<T>
+You will need to implement Display, Debug and maybe some other traits for the generic Vec. But you can't implement foreign traits or foreign types (remember the orphan rule). That's why you need to create a new local type.
+ Then you can implement traits for it.
+
+
+
