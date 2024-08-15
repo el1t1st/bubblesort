@@ -8,7 +8,7 @@ let vector_to_sort = vec![1,4,9,2,5,11];
 
 You can think of bubble sort as a way of taking 2 values and put them in a private bubble, and then check which of those two values in the bubble is largest, and then switch them so the smaller one is first, and then move to the next 2 values, and do the same. Every time there is a switch needed, it is recorded. And if there was a switch during the bubble checks, the whole process is repeated.
 
-**The reason why its called bubblesort is because you need to compare two values at a time, as if they are in a bubble.**
+**The reason why its called bubblesort is because you need to compare two values at a time, as if they are in a bubble. And then it moves to the next element. Think of bubbles moving up.**
 
 # What can you sort with bubblesort?
 
