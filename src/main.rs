@@ -1,33 +1,33 @@
-// The reason why I create a clone of the collection, is because of the borrowing rules of Rust.
-// You can only have one mutable reference at any given time. or you can have many immutable
-// references. So the immugable references are used for looping and copamaring, and the original
-// collection is mutated as the bublesort process runs.
-//
-fn main() {
-    let mut v = vec![99, 9, 18, 2, 15, 66, 100];
-    let mut vcopy = v.clone();
-    let mut changed: bool;
+fn bubblesort(collection: &mut Vec<i32>) {
+    let mut switched: bool;
+    let mut col_clone = collection.clone();
 
+    // the overal loop
     loop {
-        changed = false;
-        for (index, element) in vcopy.iter().enumerate() {
-            // println!("The element {} on index {}", element, index);
-            if index < &vcopy.len() - 1 {
-                println!("Still a next element : {} {}", &vcopy[index + 1], element);
-                if element > &vcopy[index + 1] {
-                    println!("need to swap");
-                    v.swap(index, index + 1);
-                    changed = true;
+        switched = false;
+        for (index, element) in col_clone.iter().enumerate() {
+            // compare only if there is still a next element
+            if index < col_clone.len() - 1 {
+                // compare the current element with the next
+                if element > &col_clone[index + 1] {
+                    // swap
+                    collection.swap(index, index + 1);
+                    switched = true;
                 }
             }
         }
+        col_clone = collection.clone();
+        println!("The update collection: {:#?}", col_clone);
 
-        println!("the updated vec: {:#?}", &v);
-        vcopy = v.clone();
-
-        if !changed {
-            println!("The collection is sorted using bubblesort: {:#?}", v);
+        if !switched {
+            println!("All is bubblesorted! {:#?}", &collection);
             break;
         }
     }
+}
+
+fn main() {
+    let mut unsorted = vec![99, 2, 5, 67, 25, 9];
+    bubblesort(&mut unsorted);
+    println!("Yuri Gagarin was the first cosmonaut to orbit earth on April 12 1961!");
 }
