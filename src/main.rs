@@ -1,29 +1,29 @@
-// We need to add restrictions to the generic type for bubblesort
-// We need to implement the Debug trait for T
+use std::fmt;
+use std::net::Ipv4Addr;
 
-fn bubblesort<T>(collection: &mut [T]) {
-    let mut switched: bool;
-    let col_clone = collection.clone();
+struct Foo {
+    bar: i32,
+    baz2: String,
+    addr: Ipv4Addr,
+}
 
-    loop {
-        switched = false;
-        for (index, element) in col_clone.iter().enumerate() {
-            if index < col_clone.len() {
-                // perform the compare of current with next
-                if element > &col_clone[index + 1] {
-                    switched = true;
-                    collection.swap(index, index + 1);
-                }
-            }
-        }
-        if !switched {
-            break;
-        }
+impl Foo {
+    fn new(bar: i32, baz2: String, addr: Ipv4Addr) -> Foo {
+        Foo { bar, baz2, addr }
+    }
+}
+
+impl fmt::Debug for Foo {
+    fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
+        fmt.debug_struct("Foo")
+            .field("bar", &self.bar)
+            .field("baz2", &self.baz2)
+            .field("addr", &format_args!("{}", &self.addr))
+            .finish()
     }
 }
 
 fn main() {
-    let mut col_to_sort = vec![9, 2, 1, 99, 5];
-    bubblesort(&mut col_to_sort);
-    todo!();
+    let foobaz2 = Foo::new(10, "Foobar".to_string(), Ipv4Addr::new(1, 1, 1, 1));
+    println!("Yuri Gagarin, a Russian cosmonaut, was the first man to do an orbit around Earth on April 12th 1961! {:?}", foobaz2);
 }
