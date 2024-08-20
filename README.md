@@ -63,20 +63,23 @@ assert_eq!(collection.swap(1,0), [2,1]);
 
 A solution is to iter_mut over the original collection, and mutate it. To have multiple immutable references, you can clone the original collection.
 
-The algorithm:
+The bubblesort algorithm adapted to Rust:
 
-Loop over all elements of the vector
-Compare the current element to the next element in the vector
-Swap if needed both elements
-If there is a swap set the switched value to true
-Stop looping when the switched value is false
-
+1. Clone the collection to sort
+2. Set the switched to false
+3. Loop over all elements of the cloned vector 
+4. Check if there current index < total length of vector -1 
+5. Compare the current element to the next element in the cloned collection
+6. Swap if needed both elements in the original collection (that way you have multiple immutable reads on the cloned collection and one mutable reference to the original collection) 
+7. If there is a swap set the switched value to true
+8. End Loop
+9. Copy the updated collection to the cloned collection
+10. Stop looping when the switched value is false
+11. Loop until the switched value is false
 
 ### 2. When working with for loops on vectors and comparing indices, you need a way to know when you need to compare and when not. Because you will panic if you are trying to compare the last element with a non-existing next element.
 
 That's why you need an if block which checks if you've reached the last element before you compare the current element with the next element.
-
-
 
 # Extracting the bubblesort function for i32
 This extraction can be found in the **extract_bubblesort_function** branch.
@@ -85,5 +88,6 @@ This extraction can be found in the **extract_bubblesort_function** branch.
 You will need to implement Display, Debug and maybe some other traits for the generic Vec. But you can't implement foreign traits or foreign types (remember the orphan rule). That's why you need to create a new local type.
  Then you can implement traits for it.
 
+The generic version can be found in the **bubblesort_generic** branch.
 
 
